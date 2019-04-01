@@ -1,0 +1,93 @@
+{% extends 'AdminBundle::layout.html.twig' %}
+{% block title %} Qualiso Hope3k | Document {% endblock %}
+
+   {% block menu %}  <a href="{{ path('produit_index') }}">Produit</a>   {% endblock %}
+
+   {% block menu_active %}    Liste {% endblock %}
+{% block content %}
+    <div class="col-md-10  widget-container-col ui-sortable" id="widget-container-col-1">
+        <div class="widget-box ui-sortable-handle" id="widget-box-1">
+            <div class="widget-header">
+                <h5 class="widget-title">Liste des Produits :</h5>
+
+                <div class="widget-toolbar">
+                    <div class="widget-menu">
+                        <a href="#" data-action="settings" data-toggle="dropdown">
+                            <i class="ace-icon fa fa-bars"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
+                            <li>
+                                <a data-toggle="tab" href="#dropdown1">Option#1</a>
+                            </li>
+
+                            <li>
+                                <a data-toggle="tab" href="#dropdown2">Option#2</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="#" data-action="fullscreen" class="orange2">
+                        <i class="ace-icon fa fa-expand"></i>
+                    </a>
+
+                    <a href="#" data-action="reload">
+                        <i class="ace-icon fa fa-refresh"></i>
+                    </a>
+
+                    <a href="#" data-action="collapse">
+                        <i class="ace-icon fa fa-chevron-up"></i>
+                    </a>
+
+                    <a href="#" data-action="close">
+                        <i class="ace-icon fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main">
+
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Reference</th>
+                                <th>Description</th>
+                                <th>Id</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for produit in produits %}
+                                <tr>
+                                    <td><a href="{{ path('produit_show', { 'id': produit.id }) }}">{{ produit.reference }}</a></td>
+                                    <td>{{ produit.description }}</td>
+                                    <td>{{ produit.id }}</td>
+                                    <td>
+                                        <ul>
+                                            <li>
+                                                <a href="{{ path('produit_show', { 'id': produit.id }) }}">show</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('produit_edit', { 'id': produit.id }) }}">edit</a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'AdminBundle::layout.html.twig' %}
+{% block title %} FTTH Orange | Produit {% endblock %}
+    {% block stylesheets %}
+        {{ parent() }}
+        <link rel="stylesheet" href="{{ asset('') }}assets/css/jquery-ui.custom.min.css"/>
+        <link rel="stylesheet" href="{{ asset('') }}assets/css/chosen.min.css"/>
+        <link rel="stylesheet" href="{{ asset('') }}assets/css/bootstrap-datepicker3.min.css"/>
+        <link rel="stylesheet" href="{{ asset('') }}assets/css/bootstrap-timepicker.min.css"/>
+        <link rel="stylesheet" href="{{ asset('') }}assets/css/daterangepicker.min.css"/>
+        <link rel="stylesheet" href="{{ asset('') }}assets/css/bootstrap-datetimepicker.min.css"/>
+        <link rel="stylesheet" href="{{ asset('') }}assets/css/bootstrap-colorpicker.min.css"/>
+        <style type="text/css">
+
+
+        </style>
+
+    {% endblock %}
+   {% block menu %}  <a href="{{ path('produit_index') }}">Produit</a>   {% endblock %}
+
+   {% block menu_active %}    Ajouter un Produit {% endblock %}
+{% block content %}
+
+    <div class="col-md-10  widget-container-col ui-sortable" id="widget-container-col-1">
+        <div class="widget-box ui-sortable-handle" id="widget-box-1">
+            <div class="widget-header">
+                <h5 class="widget-title">Ajouter nouveau Produit :</h5>
+
+                <div class="widget-toolbar">
+                    <div class="widget-menu">
+                        <a href="#" data-action="settings" data-toggle="dropdown">
+                            <i class="ace-icon fa fa-bars"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
+                            <li>
+                                <a data-toggle="tab" href="#dropdown1">Option#1</a>
+                            </li>
+
+                            <li>
+                                <a data-toggle="tab" href="#dropdown2">Option#2</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="#" data-action="fullscreen" class="orange2">
+                        <i class="ace-icon fa fa-expand"></i>
+                    </a>
+
+                    <a href="#" data-action="reload">
+                        <i class="ace-icon fa fa-refresh"></i>
+                    </a>
+
+                    <a href="#" data-action="collapse">
+                        <i class="ace-icon fa fa-chevron-up"></i>
+                    </a>
+
+                    <a href="#" data-action="close">
+                        <i class="ace-icon fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main">
+
+                    <div class="row">
+                        {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        <input type="submit" value="Create" />
+                        {{ form_end(form) }}
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

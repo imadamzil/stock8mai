@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Datum</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ datum.id }}</td>
+            </tr>
+            <tr>
+                <th>Path</th>
+                <td>{{ datum.path }}</td>
+            </tr>
+            <tr>
+                <th>Documentname</th>
+                <td>{{ datum.documentName }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{% if datum.updatedAt %}{{ datum.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if datum.createdAt %}{{ datum.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('data_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('data_edit', { 'id': datum.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

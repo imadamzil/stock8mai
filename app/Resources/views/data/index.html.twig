@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Datas list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Path</th>
+                <th>Documentname</th>
+                <th>Updatedat</th>
+                <th>Createdat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for datum in datas %}
+            <tr>
+                <td><a href="{{ path('data_show', { 'id': datum.id }) }}">{{ datum.id }}</a></td>
+                <td>{{ datum.path }}</td>
+                <td>{{ datum.documentName }}</td>
+                <td>{% if datum.updatedAt %}{{ datum.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if datum.createdAt %}{{ datum.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('data_show', { 'id': datum.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('data_edit', { 'id': datum.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('data_new') }}">Create a new datum</a>
+        </li>
+    </ul>
+{% endblock %}
