@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Quantitelivrees list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Qtelivree</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for quantitelivree in quantitelivrees %}
+            <tr>
+                <td><a href="{{ path('quantitelivree_show', { 'id': quantitelivree.id }) }}">{{ quantitelivree.qtelivree }}</a></td>
+                <td>{{ quantitelivree.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('quantitelivree_show', { 'id': quantitelivree.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('quantitelivree_edit', { 'id': quantitelivree.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('quantitelivree_new') }}">Create a new quantitelivree</a>
+        </li>
+    </ul>
+{% endblock %}

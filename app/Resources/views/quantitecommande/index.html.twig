@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Quantitecommandes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Qtecomm</th>
+                <th>Datecomm</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for quantitecommande in quantitecommandes %}
+            <tr>
+                <td><a href="{{ path('quantitecommande_show', { 'id': quantitecommande.id }) }}">{{ quantitecommande.qtecomm }}</a></td>
+                <td>{% if quantitecommande.datecomm %}{{ quantitecommande.datecomm|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ quantitecommande.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('quantitecommande_show', { 'id': quantitecommande.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('quantitecommande_edit', { 'id': quantitecommande.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('quantitecommande_new') }}">Create a new quantitecommande</a>
+        </li>
+    </ul>
+{% endblock %}

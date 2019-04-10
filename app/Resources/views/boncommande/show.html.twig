@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Boncommande</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Datecomm</th>
+                <td>{% if boncommande.datecomm %}{{ boncommande.datecomm|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ boncommande.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('boncommande_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('boncommande_edit', { 'id': boncommande.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Bonlivraisons list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Datelivraison</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bonlivraison in bonlivraisons %}
+            <tr>
+                <td><a href="{{ path('bonlivraison_show', { 'id': bonlivraison.id }) }}">{{ bonlivraison.datelivraison }}</a></td>
+                <td>{{ bonlivraison.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('bonlivraison_show', { 'id': bonlivraison.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('bonlivraison_edit', { 'id': bonlivraison.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('bonlivraison_new') }}">Create a new bonlivraison</a>
+        </li>
+    </ul>
+{% endblock %}

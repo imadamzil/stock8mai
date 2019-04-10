@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Quantiteentrees list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Qteentree</th>
+                <th>Dateentree</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for quantiteentree in quantiteentrees %}
+            <tr>
+                <td><a href="{{ path('quantiteentree_show', { 'id': quantiteentree.id }) }}">{{ quantiteentree.qteentree }}</a></td>
+                <td>{% if quantiteentree.dateentree %}{{ quantiteentree.dateentree|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ quantiteentree.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('quantiteentree_show', { 'id': quantiteentree.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('quantiteentree_edit', { 'id': quantiteentree.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('quantiteentree_new') }}">Create a new quantiteentree</a>
+        </li>
+    </ul>
+{% endblock %}

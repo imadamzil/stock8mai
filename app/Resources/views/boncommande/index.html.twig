@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Boncommandes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Datecomm</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for boncommande in boncommandes %}
+            <tr>
+                <td><a href="{{ path('boncommande_show', { 'id': boncommande.id }) }}">{{ boncommande.datecomm }}</a></td>
+                <td>{{ boncommande.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('boncommande_show', { 'id': boncommande.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('boncommande_edit', { 'id': boncommande.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('boncommande_new') }}">Create a new boncommande</a>
+        </li>
+    </ul>
+{% endblock %}
