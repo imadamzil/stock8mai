@@ -24,4 +24,28 @@ class User extends BaseUser
         parent::__construct();
         // your own logic
     }
+
+    /**
+     * Set per
+     *
+     * @param \AdminBundle\Entity\Personne $per
+     *
+     * @return User
+     */
+    public function setPer(\AdminBundle\Entity\Personne $per = null)
+    {
+        $this->per = $per;
+
+        return $this;
+    }
+
+    /**
+     * Get per
+     *
+     * @return \AdminBundle\Entity\Personne
+     */
+    public function getPer()
+    {
+        return $this->per;
+    }
 }

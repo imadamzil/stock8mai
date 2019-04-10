@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Quantiteentree
  *
- * @ORM\Table(name="quantiteentree", uniqueConstraints={@ORM\UniqueConstraint(name="QUANTITEENTREE_PK", columns={"id"})}, indexes={@ORM\Index(name="ASSOCIATION1_FK", columns={"Fou_id"}), @ORM\Index(name="ASSOCIATION1_FK2", columns={"Pro_id"})})
+ * @ORM\Table(name="quantiteentree")
  * @ORM\Entity
  */
 class Quantiteentree
@@ -56,5 +56,110 @@ class Quantiteentree
     private $pro;
 
 
-}
 
+    /**
+     * Set qteentree
+     *
+     * @param integer $qteentree
+     *
+     * @return Quantiteentree
+     */
+    public function setQteentree($qteentree)
+    {
+        $this->qteentree = $qteentree;
+
+        return $this;
+    }
+
+    /**
+     * Get qteentree
+     *
+     * @return integer
+     */
+    public function getQteentree()
+    {
+        return $this->qteentree;
+    }
+
+    /**
+     * Set dateentree
+     *
+     * @param \DateTime $dateentree
+     *
+     * @return Quantiteentree
+     */
+    public function setDateentree($dateentree)
+    {
+        $this->dateentree = $dateentree;
+
+        return $this;
+    }
+
+    /**
+     * Get dateentree
+     *
+     * @return \DateTime
+     */
+    public function getDateentree()
+    {
+        return $this->dateentree;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set fou
+     *
+     * @param \AdminBundle\Entity\Fournisseur $fou
+     *
+     * @return Quantiteentree
+     */
+    public function setFou(\AdminBundle\Entity\Fournisseur $fou = null)
+    {
+        $this->fou = $fou;
+
+        return $this;
+    }
+
+    /**
+     * Get fou
+     *
+     * @return \AdminBundle\Entity\Fournisseur
+     */
+    public function getFou()
+    {
+        return $this->fou;
+    }
+
+    /**
+     * Set pro
+     *
+     * @param \AdminBundle\Entity\Produit $pro
+     *
+     * @return Quantiteentree
+     */
+    public function setPro(\AdminBundle\Entity\Produit $pro = null)
+    {
+        $this->pro = $pro;
+
+        return $this;
+    }
+
+    /**
+     * Get pro
+     *
+     * @return \AdminBundle\Entity\Produit
+     */
+    public function getPro()
+    {
+        return $this->pro;
+    }
+}

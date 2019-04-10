@@ -12,19 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Quantitelivree
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="Pro_id", type="integer", nullable=true)
-     */
-    private $proId;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="Qua_Bon_id", type="integer", nullable=true)
-     */
-    private $quaBonId;
+
 
     /**
      * @var integer
@@ -63,5 +52,133 @@ class Quantitelivree
     private $bon;
 
 
-}
+    /**
+     * Set proId
+     *
+     * @param integer $proId
+     *
+     * @return Quantitelivree
+     */
+    public function setProId($proId)
+    {
+        $this->proId = $proId;
 
+        return $this;
+    }
+
+    /**
+     * Get proId
+     *
+     * @return integer
+     */
+    public function getProId()
+    {
+        return $this->proId;
+    }
+
+    /**
+     * Set quaBonId
+     *
+     * @param integer $quaBonId
+     *
+     * @return Quantitelivree
+     */
+    public function setQuaBonId($quaBonId)
+    {
+        $this->quaBonId = $quaBonId;
+
+        return $this;
+    }
+
+    /**
+     * Get quaBonId
+     *
+     * @return integer
+     */
+    public function getQuaBonId()
+    {
+        return $this->quaBonId;
+    }
+
+    /**
+     * Set qtelivree
+     *
+     * @param integer $qtelivree
+     *
+     * @return Quantitelivree
+     */
+    public function setQtelivree($qtelivree)
+    {
+        $this->qtelivree = $qtelivree;
+
+        return $this;
+    }
+
+    /**
+     * Get qtelivree
+     *
+     * @return integer
+     */
+    public function getQtelivree()
+    {
+        return $this->qtelivree;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set qua
+     *
+     * @param \AdminBundle\Entity\Quantitecommande $qua
+     *
+     * @return Quantitelivree
+     */
+    public function setQua(\AdminBundle\Entity\Quantitecommande $qua = null)
+    {
+        $this->qua = $qua;
+
+        return $this;
+    }
+
+    /**
+     * Get qua
+     *
+     * @return \AdminBundle\Entity\Quantitecommande
+     */
+    public function getQua()
+    {
+        return $this->qua;
+    }
+
+    /**
+     * Set bon
+     *
+     * @param \AdminBundle\Entity\Bonlivraison $bon
+     *
+     * @return Quantitelivree
+     */
+    public function setBon(\AdminBundle\Entity\Bonlivraison $bon = null)
+    {
+        $this->bon = $bon;
+
+        return $this;
+    }
+
+    /**
+     * Get bon
+     *
+     * @return \AdminBundle\Entity\Bonlivraison
+     */
+    public function getBon()
+    {
+        return $this->bon;
+    }
+}

@@ -112,6 +112,7 @@ class Produit
     {
         return $this->id;
     }
+
     /**
      * Set per
      *
@@ -125,6 +126,7 @@ class Produit
 
         return $this;
     }
+
     /**
      * Set cat
      *
@@ -148,6 +150,7 @@ class Produit
     {
         return $this->cat;
     }
+
     /**
      * Get per
      *
@@ -156,5 +159,10 @@ class Produit
     public function getPer()
     {
         return $this->per;
+    }
+
+    public function __toString()
+    {
+        return $this->getReference() . ' ' . $this->getDescription();
     }
 }

@@ -29,5 +29,38 @@ class Bonlivraison
     private $id;
 
 
-}
 
+    /**
+     * Set datelivraison
+     *
+     * @param \DateTime $datelivraison
+     *
+     * @return Bonlivraison
+     */
+    public function setDatelivraison($datelivraison)
+    {
+        $this->datelivraison = $datelivraison;
+
+        return $this;
+    }
+
+    /**
+     * Get datelivraison
+     *
+     * @return \DateTime
+     */
+    public function getDatelivraison()
+    {
+        return $this->datelivraison;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

@@ -56,5 +56,110 @@ class Quantitecommande
     private $pro;
 
 
-}
 
+    /**
+     * Set qtecomm
+     *
+     * @param integer $qtecomm
+     *
+     * @return Quantitecommande
+     */
+    public function setQtecomm($qtecomm)
+    {
+        $this->qtecomm = $qtecomm;
+
+        return $this;
+    }
+
+    /**
+     * Get qtecomm
+     *
+     * @return integer
+     */
+    public function getQtecomm()
+    {
+        return $this->qtecomm;
+    }
+
+    /**
+     * Set datecomm
+     *
+     * @param \DateTime $datecomm
+     *
+     * @return Quantitecommande
+     */
+    public function setDatecomm($datecomm)
+    {
+        $this->datecomm = $datecomm;
+
+        return $this;
+    }
+
+    /**
+     * Get datecomm
+     *
+     * @return \DateTime
+     */
+    public function getDatecomm()
+    {
+        return $this->datecomm;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set bon
+     *
+     * @param \AdminBundle\Entity\Boncommande $bon
+     *
+     * @return Quantitecommande
+     */
+    public function setBon(\AdminBundle\Entity\Boncommande $bon = null)
+    {
+        $this->bon = $bon;
+
+        return $this;
+    }
+
+    /**
+     * Get bon
+     *
+     * @return \AdminBundle\Entity\Boncommande
+     */
+    public function getBon()
+    {
+        return $this->bon;
+    }
+
+    /**
+     * Set pro
+     *
+     * @param \AdminBundle\Entity\Produit $pro
+     *
+     * @return Quantitecommande
+     */
+    public function setPro(\AdminBundle\Entity\Produit $pro = null)
+    {
+        $this->pro = $pro;
+
+        return $this;
+    }
+
+    /**
+     * Get pro
+     *
+     * @return \AdminBundle\Entity\Produit
+     */
+    public function getPro()
+    {
+        return $this->pro;
+    }
+}

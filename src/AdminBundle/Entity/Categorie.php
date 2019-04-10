@@ -29,5 +29,38 @@ class Categorie
     private $id;
 
 
-}
 
+    /**
+     * Set labelle
+     *
+     * @param string $labelle
+     *
+     * @return Categorie
+     */
+    public function setLabelle($labelle)
+    {
+        $this->labelle = $labelle;
+
+        return $this;
+    }
+
+    /**
+     * Get labelle
+     *
+     * @return string
+     */
+    public function getLabelle()
+    {
+        return $this->labelle;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}
