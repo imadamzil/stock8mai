@@ -13,10 +13,36 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 //use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet as Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 
 
-class DefaultController extends Controller
+class DefaultController extends Controller implements IReadFilter
 {
+    private $startRow = 0;
+
+    private $endRow = 0;
+
+    /**
+     * Set the list of rows that we want to read.
+     *
+     * @param mixed $startRow
+     * @param mixed $chunkSize
+     */
+    public function setRows($startRow, $chunkSize)
+    {
+        $this->startRow = $startRow;
+        $this->endRow = $startRow + $chunkSize;
+    }
+
+    public function readCell($column, $row, $worksheetName = '')
+    {
+        //  Only read the heading row, and the rows that are configured in $this->_startRow and $this->_endRow
+        if (($row == 1) || ($row >= $this->startRow && $row < $this->endRow)) {
+            return true;
+        }
+
+        return false;
+    }
     /**
      * @Route("/")
      */
@@ -32,22 +58,36 @@ class DefaultController extends Controller
               ); */
         //   $worksheet = $spreadsheet->getActiveSheet();
         //  $spreadsheet->getActiveSheet()->getColumnDimension('C')->setVisible(true);
+
+        set_time_limit(10000); //
+        ini_set('memory_limit', '1024M');
+
+
+
+      //  $spreadsheet->getProtection()->setSheet(true);
+
+
         $sheetData = $spreadsheet->getActiveSheet()->toArray();
+        //$highestRow = $spreadsheet->getActiveSheet()->getHighestRow();
+      //  dump($highestRow);
+
         // var_dump($sheetData);
-        set_time_limit(500); //
+        dump($sheetData);
 
 
-        foreach ($sheetData AS $row) {
-            if ($row[0] == 'Projet' or $row[1] == 'Sujet') {
 
-            } else {
+    foreach ($sheetData AS $row) {
+            if ($row[3] == 'Projet' or $row[4] == 'Sujet') {
+
+            }
+            else {
 
                 $em = $this->getDoctrine()->getManager();
-                $sipp = $row[4];
-                $ssujet = $row[1];
-                $date_maj = DateTime::createFromFormat('m/d/Y H:i', $row[27]);
+                $sipp = $row[7];
+                $ssujet = $row[4];
+                $date_maj = DateTime::createFromFormat('m/d/Y H:i', $row[30]);
                 $date_maj->format('d-m-Y H:i');
-                $date_creation = DateTime::createFromFormat('m/d/Y H:i', $row[3]);
+                $date_creation = DateTime::createFromFormat('m/d/Y H:i', $row[6]);
                 $date_creation->format('d-m-Y H:i');
                 $dem_maj = $em->getRepository('AdminBundle:Demande')->findOneBy(array('dateMaj' => $date_maj
                 ));
@@ -64,16 +104,16 @@ class DefaultController extends Controller
                     $demande = new Demande();
 
                     //projet
-                    $projet = $row[0];
+                    $projet = $row[3];
                     $demande->setProjet($projet);
                     //sujet
-                    $sujet = $row[1];
+                    $sujet = $row[4];
                     $demande->setSujet($sujet);
                     //intervenant
-                    $intervenant = $row[2];
+                    $intervenant = $row[5];
                     $demande->setIntervenant($intervenant);
                     //date_creation
-                    $dateCreatio = $row[3];
+                    $dateCreatio = $row[6];
 
                     if ($dateCreatio != "") {
 
@@ -85,13 +125,13 @@ class DefaultController extends Controller
 
                     }
                     //sip
-                    $sip = $row[4];
+                    $sip = $row[7];
                     $demande->setSip($sip);
                     //internet login
-                    $loginInternet = $row[5];
+                    $loginInternet = $row[8];
                     $demande->setLoginInternet($loginInternet);
                     //date_installation
-                    $dateInstallatio = $row[6];
+                    $dateInstallatio = $row[9];
                     if ($dateInstallatio != "") {
                         $dateInstallation = DateTime::createFromFormat('m/d/Y', $dateInstallatio);
                         $dateInstallation->format('m/d/Y');
@@ -99,7 +139,7 @@ class DefaultController extends Controller
                     }
 
                     //date_mes
-                    $dateMe = $row[7];
+                    $dateMe = $row[10];
                     if ($dateMe != "") {
 
                         $dateMes = DateTime::createFromFormat('m/d/Y', $dateMe);
@@ -109,28 +149,28 @@ class DefaultController extends Controller
                     }
 
                     //etat
-                    $etat = $row[8];
+                    $etat = $row[11];
                     $demande->setEtat($etat);
                     //
-                    $problemeClient = $row[9];
+                    $problemeClient = $row[12];
                     $demande->setProblemeClient($problemeClient);
-                    $etatInstallation = $row[10];
+                    $etatInstallation = $row[13];
                     $demande->setEtatInstallation($etatInstallation);
-                    $problemeInstallation = $row[11];
+                    $problemeInstallation = $row[14];
                     $demande->setProblemeInstallation($problemeInstallation);
-                    $blocageClient = $row[12];
+                    $blocageClient = $row[15];
                     $demande->setBlocageClient($blocageClient);
-                    $statutActivite = $row[13];
+                    $statutActivite = $row[16];
                     $demande->setStatutActivite($statutActivite);
-                    $file = $row[14];
+                    $file = $row[17];
                     $demande->setFile($file);
-                    $technologie = $row[15];
+                    $technologie = $row[18];
                     $demande->setTechnologie($technologie);
-                    $typeOffre = $row[16];
+                    $typeOffre = $row[19];
                     $demande->setTypeOffre($typeOffre);
-                    $kam = $row[17];
+                    $kam = $row[20];
                     $demande->setKam($kam);
-                    $dateGoInstallatio = $row[18];
+                    $dateGoInstallatio = $row[21];
                     if ($dateGoInstallatio != "") {
 
                         $dateGoInstallation = DateTime::createFromFormat('m/d/Y', $dateGoInstallatio);
@@ -139,26 +179,26 @@ class DefaultController extends Controller
                     }
 
 
-                    $dateActivatio = $row[19];
+                    $dateActivatio = $row[22];
                     if ($dateActivatio != "") {
                         $dateActivation = DateTime::createFromFormat('m/d/Y', $dateActivatio);
                         $dateActivation->format('d-m-Y');
                         $demande->setDateActivation($dateActivation);
                     }
 
-                    $proprietaire = $row[20];
+                    $proprietaire = $row[23];
                     $demande->setProprietaire($proprietaire);
-                    $offre = $row[21];
+                    $offre = $row[24];
                     $demande->setOffre($offre);
-                    $modifiePar = $row[22];
+                    $modifiePar = $row[25];
                     $demande->setModifiePar($modifiePar);
-                    $portabilite = $row[23];
+                    $portabilite = $row[26];
                     $demande->setPortabilite($portabilite);
-                    $adressMac = $row[24];
+                    $adressMac = $row[27];
                     $demande->setAdressMac($adressMac);
-                    $changementEffectue = $row[25];
+                    $changementEffectue = $row[28];
                     $demande->setChangementEffectue($changementEffectue);
-                    $dateEnvoiFil = $row[26];
+                    $dateEnvoiFil = $row[29];
                     if ($dateEnvoiFil != "") {
 
                         $dateEnvoiFile = DateTime::createFromFormat('m/d/Y H:i', $dateEnvoiFil);
@@ -166,7 +206,7 @@ class DefaultController extends Controller
                         $demande->setDateEnvoiFile($dateEnvoiFile);
                     }
 
-                    $dateMa = $row[27];
+                    $dateMa = $row[30];
                     if ($dateMa != "") {
                         $dateMaj = DateTime::createFromFormat('m/d/Y H:i', $dateMa);
                         $dateMaj->format('d-m-Y H:i');
@@ -185,16 +225,16 @@ class DefaultController extends Controller
                         $demande = new Demande();
 
                         //projet
-                        $projet = $row[0];
+                        $projet = $row[3];
                         $demande->setProjet($projet);
                         //sujet
-                        $sujet = $row[1];
+                        $sujet = $row[4];
                         $demande->setSujet($sujet);
                         //intervenant
-                        $intervenant = $row[2];
+                        $intervenant = $row[5];
                         $demande->setIntervenant($intervenant);
                         //date_creation
-                        $dateCreatio = $row[3];
+                        $dateCreatio = $row[6];
 
                         if ($dateCreatio != "") {
 
@@ -206,13 +246,13 @@ class DefaultController extends Controller
 
                         }
                         //sip
-                        $sip = $row[4];
+                        $sip = $row[7];
                         $demande->setSip($sip);
                         //internet login
-                        $loginInternet = $row[5];
+                        $loginInternet = $row[8];
                         $demande->setLoginInternet($loginInternet);
                         //date_installation
-                        $dateInstallatio = $row[6];
+                        $dateInstallatio = $row[9];
                         if ($dateInstallatio != "") {
                             $dateInstallation = DateTime::createFromFormat('m/d/Y', $dateInstallatio);
                             $dateInstallation->format('m/d/Y');
@@ -220,7 +260,7 @@ class DefaultController extends Controller
                         }
 
                         //date_mes
-                        $dateMe = $row[7];
+                        $dateMe = $row[10];
                         if ($dateMe != "") {
 
                             $dateMes = DateTime::createFromFormat('m/d/Y', $dateMe);
@@ -230,28 +270,28 @@ class DefaultController extends Controller
                         }
 
                         //etat
-                        $etat = $row[8];
+                        $etat = $row[11];
                         $demande->setEtat($etat);
                         //
-                        $problemeClient = $row[9];
+                        $problemeClient = $row[12];
                         $demande->setProblemeClient($problemeClient);
-                        $etatInstallation = $row[10];
+                        $etatInstallation = $row[13];
                         $demande->setEtatInstallation($etatInstallation);
-                        $problemeInstallation = $row[11];
+                        $problemeInstallation = $row[14];
                         $demande->setProblemeInstallation($problemeInstallation);
-                        $blocageClient = $row[12];
+                        $blocageClient = $row[15];
                         $demande->setBlocageClient($blocageClient);
-                        $statutActivite = $row[13];
+                        $statutActivite = $row[16];
                         $demande->setStatutActivite($statutActivite);
-                        $file = $row[14];
+                        $file = $row[17];
                         $demande->setFile($file);
-                        $technologie = $row[15];
+                        $technologie = $row[18];
                         $demande->setTechnologie($technologie);
-                        $typeOffre = $row[16];
+                        $typeOffre = $row[19];
                         $demande->setTypeOffre($typeOffre);
-                        $kam = $row[17];
+                        $kam = $row[20];
                         $demande->setKam($kam);
-                        $dateGoInstallatio = $row[18];
+                        $dateGoInstallatio = $row[21];
                         if ($dateGoInstallatio != "") {
 
                             $dateGoInstallation = DateTime::createFromFormat('m/d/Y', $dateGoInstallatio);
@@ -260,26 +300,26 @@ class DefaultController extends Controller
                         }
 
 
-                        $dateActivatio = $row[19];
+                        $dateActivatio = $row[22];
                         if ($dateActivatio != "") {
                             $dateActivation = DateTime::createFromFormat('m/d/Y', $dateActivatio);
                             $dateActivation->format('d-m-Y');
                             $demande->setDateActivation($dateActivation);
                         }
 
-                        $proprietaire = $row[20];
+                        $proprietaire = $row[23];
                         $demande->setProprietaire($proprietaire);
-                        $offre = $row[21];
+                        $offre = $row[24];
                         $demande->setOffre($offre);
-                        $modifiePar = $row[22];
+                        $modifiePar = $row[25];
                         $demande->setModifiePar($modifiePar);
-                        $portabilite = $row[23];
+                        $portabilite = $row[26];
                         $demande->setPortabilite($portabilite);
-                        $adressMac = $row[24];
+                        $adressMac = $row[27];
                         $demande->setAdressMac($adressMac);
-                        $changementEffectue = $row[25];
+                        $changementEffectue = $row[28];
                         $demande->setChangementEffectue($changementEffectue);
-                        $dateEnvoiFil = $row[26];
+                        $dateEnvoiFil = $row[29];
                         if ($dateEnvoiFil != "") {
 
                             $dateEnvoiFile = DateTime::createFromFormat('m/d/Y H:i', $dateEnvoiFil);
@@ -287,7 +327,7 @@ class DefaultController extends Controller
                             $demande->setDateEnvoiFile($dateEnvoiFile);
                         }
 
-                        $dateMa = $row[27];
+                        $dateMa = $row[30];
                         if ($dateMa != "") {
                             $dateMaj = DateTime::createFromFormat('m/d/Y H:i', $dateMa);
                             $dateMaj->format('d-m-Y H:i');
@@ -306,16 +346,16 @@ class DefaultController extends Controller
                         else {
 
                             $demande = $dem_sip;
-                            $projet = $row[0];
+                            $projet = $row[3];
                             $demande->setProjet($projet);
                             //sujet
-                            $sujet = $row[1];
+                            $sujet = $row[4];
                             $demande->setSujet($sujet);
                             //intervenant
-                            $intervenant = $row[2];
+                            $intervenant = $row[5];
                             $demande->setIntervenant($intervenant);
                             //date_creation
-                            $dateCreatio = $row[3];
+                            $dateCreatio = $row[6];
 
                             if ($dateCreatio != "") {
 
@@ -327,13 +367,13 @@ class DefaultController extends Controller
 
                             }
                             //sip
-                            $sip = $row[4];
+                            $sip = $row[7];
                             $demande->setSip($sip);
                             //internet login
-                            $loginInternet = $row[5];
+                            $loginInternet = $row[8];
                             $demande->setLoginInternet($loginInternet);
                             //date_installation
-                            $dateInstallatio = $row[6];
+                            $dateInstallatio = $row[9];
                             if ($dateInstallatio != "") {
                                 $dateInstallation = DateTime::createFromFormat('m/d/Y', $dateInstallatio);
                                 $dateInstallation->format('m/d/Y');
@@ -341,7 +381,7 @@ class DefaultController extends Controller
                             }
 
                             //date_mes
-                            $dateMe = $row[7];
+                            $dateMe = $row[10];
                             if ($dateMe != "") {
 
                                 $dateMes = DateTime::createFromFormat('m/d/Y', $dateMe);
@@ -351,28 +391,28 @@ class DefaultController extends Controller
                             }
 
                             //etat
-                            $etat = $row[8];
+                            $etat = $row[11];
                             $demande->setEtat($etat);
                             //
-                            $problemeClient = $row[9];
+                            $problemeClient = $row[12];
                             $demande->setProblemeClient($problemeClient);
-                            $etatInstallation = $row[10];
+                            $etatInstallation = $row[13];
                             $demande->setEtatInstallation($etatInstallation);
-                            $problemeInstallation = $row[11];
+                            $problemeInstallation = $row[14];
                             $demande->setProblemeInstallation($problemeInstallation);
-                            $blocageClient = $row[12];
+                            $blocageClient = $row[15];
                             $demande->setBlocageClient($blocageClient);
-                            $statutActivite = $row[13];
+                            $statutActivite = $row[16];
                             $demande->setStatutActivite($statutActivite);
-                            $file = $row[14];
+                            $file = $row[17];
                             $demande->setFile($file);
-                            $technologie = $row[15];
+                            $technologie = $row[18];
                             $demande->setTechnologie($technologie);
-                            $typeOffre = $row[16];
+                            $typeOffre = $row[19];
                             $demande->setTypeOffre($typeOffre);
-                            $kam = $row[17];
+                            $kam = $row[20];
                             $demande->setKam($kam);
-                            $dateGoInstallatio = $row[18];
+                            $dateGoInstallatio = $row[21];
                             if ($dateGoInstallatio != "") {
 
                                 $dateGoInstallation = DateTime::createFromFormat('m/d/Y', $dateGoInstallatio);
@@ -381,26 +421,26 @@ class DefaultController extends Controller
                             }
 
 
-                            $dateActivatio = $row[19];
+                            $dateActivatio = $row[22];
                             if ($dateActivatio != "") {
                                 $dateActivation = DateTime::createFromFormat('m/d/Y', $dateActivatio);
                                 $dateActivation->format('d-m-Y');
                                 $demande->setDateActivation($dateActivation);
                             }
 
-                            $proprietaire = $row[20];
+                            $proprietaire = $row[23];
                             $demande->setProprietaire($proprietaire);
-                            $offre = $row[21];
+                            $offre = $row[24];
                             $demande->setOffre($offre);
-                            $modifiePar = $row[22];
+                            $modifiePar = $row[25];
                             $demande->setModifiePar($modifiePar);
-                            $portabilite = $row[23];
+                            $portabilite = $row[26];
                             $demande->setPortabilite($portabilite);
-                            $adressMac = $row[24];
+                            $adressMac = $row[27];
                             $demande->setAdressMac($adressMac);
-                            $changementEffectue = $row[25];
+                            $changementEffectue = $row[28];
                             $demande->setChangementEffectue($changementEffectue);
-                            $dateEnvoiFil = $row[26];
+                            $dateEnvoiFil = $row[29];
                             if ($dateEnvoiFil != "") {
 
                                 $dateEnvoiFile = DateTime::createFromFormat('m/d/Y H:i', $dateEnvoiFil);
@@ -408,7 +448,7 @@ class DefaultController extends Controller
                                 $demande->setDateEnvoiFile($dateEnvoiFile);
                             }
 
-                            $dateMa = $row[27];
+                            $dateMa = $row[30];
                             if ($dateMa != "") {
                                 $dateMaj = DateTime::createFromFormat('m/d/Y H:i', $dateMa);
                                 $dateMaj->format('d-m-Y H:i');
@@ -439,4 +479,45 @@ class DefaultController extends Controller
 
         return $this->render('AdminBundle::index.html.twig');
     }
+
+    /**
+     * @Route("/test")
+     */
+    public function testAction()
+    {
+
+        $inputFileName = $this->get('kernel')->getRootDir() . '\..\web\crm.xlsx';
+      /*  $inputFileName1 = $this->get('kernel')->getRootDir() . '\..\web\test1.xlsx';
+        $spreadsheet = IOFactory::load($inputFileName);
+        $spreadsheet1 = IOFactory::load($inputFileName1);
+        $sheetData = $spreadsheet->getActiveSheet()->toArray();
+        $sheetData1 = $spreadsheet1->getActiveSheet()->toArray();
+        */
+        $spreadsheets = IOFactory::load($inputFileName);
+
+        $reader = IOFactory::createReader('Xlsx');
+        $highestRow = $spreadsheets->getActiveSheet()->getHighestRow();
+
+        $chunkSize = 100;
+        $chunkFilter = new DefaultController();
+        $reader->setReadFilter($chunkFilter);
+        set_time_limit(10000); //
+       ini_set('memory_limit', '1024M');
+// Loop to read our worksheet in "chunk size" blocks
+        for ($startRow = 2; $startRow <= 200; $startRow += $chunkSize) {
+            // Tell the Read Filter, the limits on which rows we want to read this iteration
+            $chunkFilter->setRows($startRow, $chunkSize);
+            // Load only the rows that match our filter from $inputFileName to a PhpSpreadsheet Object
+            $spreadsheet = $reader->load($inputFileName);
+
+            // Do some processing here
+
+            $sheetData = $spreadsheet->getActiveSheet()->toArray();
+            dump($sheetData);
+             }
+
+        return $this->render('AdminBundle::index.html.twig');
+
+    }
+
 }

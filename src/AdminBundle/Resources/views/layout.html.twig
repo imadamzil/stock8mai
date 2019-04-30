@@ -7,7 +7,9 @@
 
     {% block stylesheets %}
 
+{#
         <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}"/>
+#}
         <link rel="stylesheet" href="{{ asset('assets/font-awesome/4.5.0/css/font-awesome.min.css') }}"/>
 
 
@@ -21,7 +23,7 @@
         <link rel="stylesheet" href="{{ asset('') }}assets/css/bootstrap-colorpicker.min.css"/>
         <link rel="stylesheet" href="{{ asset('') }}assets/css/jquery-ui.custom.min.css"/>
         <link rel="stylesheet" href="{{ asset('') }}assets/css/jquery-ui.min.css"/>
-
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}"/>
 
 
         <link rel="stylesheet" href="{{ asset('') }}assets/css/fonts.googleapis.com.css"/>
@@ -573,7 +575,7 @@
                 <ul class="submenu">
 
                     <li class="">
-                        <a href="">
+                        <a href="{{ path('demande_index') }}">
                             <i class=" fa fa-list"></i>
                             Liste des demandes
                         </a>
@@ -622,22 +624,7 @@
 
                             <b class="arrow"></b>
                         </li>
-                        <li class="">
-                            <a href="">
-                                <i class=" fa fa-exclamation-circle"></i>
-                                Statut
-                            </a>
 
-                            <b class="arrow"></b>
-                        </li>
-                        <li class="">
-                            <a href="">
-                                <i class="fa fa-reorder"></i>
-                                Type du document
-                            </a>
-
-                            <b class="arrow"></b>
-                        </li>
                         <li class="">
                             <a href="">
                                 <i class="fa fa-globe"></i>
@@ -679,7 +666,7 @@
                 <ul class="submenu">
 
                     <li class="">
-                        <a href="">
+                        <a href="{{ path('produit_index') }}">
                             <i class=" fa fa-list"></i>
                             Liste des équipements
                         </a>
@@ -687,9 +674,33 @@
                         <b class="arrow"></b>
                     </li>
                     <li class="">
-                        <a href="">
+                        <a href="{{ path('produit_new') }}">
                             <i class=" fa fa-plus-circle"></i>
                             Ajouter un équipement
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="{{ path('quantiteentree_index') }}">
+                            <i class=" fa fa-list"></i>
+                            Equipements entrés
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="{{ path('commande_prestataire') }}">
+                            <i class=" fa fa-list"></i>
+                            Equipements livrés
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="{{ path('quantitecommande_index') }}">
+                            <i class=" fa fa-list"></i>
+                            Equipements commandés
                         </a>
 
                         <b class="arrow"></b>
@@ -697,7 +708,7 @@
                     {% if is_granted('ROLE_ADMIN') %}
 
                         <li class="">
-                            <a href="">
+                            <a href="{{ path('fournisseur_index') }}">
                                 <i class=" fa fa-barcode"></i>
                                 fournisseur
                             </a>
@@ -768,6 +779,47 @@
 
                             <b class="arrow"></b>
                         </li>
+
+                    {% endif %}
+                </ul>
+            </li>
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-file"></i>
+                    <span class="menu-text"> Autres </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+
+                    <li class="">
+                        <a href="{{ path('prestataire_index') }}">
+                            <i class=" fa fa-list"></i>
+                            Prestataires
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+
+
+
+
+                    {% if is_granted('ROLE_ADMIN') %}
+
+                        <li class="">
+                            <a href="">
+                                <i class=" fa fa-barcode"></i>
+                                test
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+
+
 
                     {% endif %}
                 </ul>

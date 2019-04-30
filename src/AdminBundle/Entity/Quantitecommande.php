@@ -19,12 +19,6 @@ class Quantitecommande
      */
     private $qtecomm;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateComm", type="datetime", nullable=true)
-     */
-    private $datecomm;
 
     /**
      * @var integer
@@ -38,7 +32,7 @@ class Quantitecommande
     /**
      * @var \AdminBundle\Entity\Boncommande
      *
-     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Boncommande")
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Boncommande",cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Bon_id", referencedColumnName="id")
      * })

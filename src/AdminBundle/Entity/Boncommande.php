@@ -15,7 +15,7 @@ class Boncommande
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateComm", type="datetime", nullable=true)
+     * @ORM\Column(name="dateComm", type="date", nullable=true)
      */
     private $datecomm;
 

@@ -1,9 +1,24 @@
-{% extends 'base.html.twig' %}
+{% extends 'AdminBundle::layout.html.twig' %}
+{% block title %} FTTH Orange | Prestataire {% endblock %}
+    {% block stylesheets %}
+        {{ parent() }}
+        <link rel="stylesheet" href="{{ asset('') }}assets/css/jquery-ui.custom.min.css"/>
+        <link rel="stylesheet" href="{{ asset('') }}assets/css/chosen.min.css"/>
+        <link rel="stylesheet" href="{{ asset('') }}assets/css/bootstrap-datepicker3.min.css"/>
+        <link rel="stylesheet" href="{{ asset('') }}assets/css/bootstrap-timepicker.min.css"/>
+        <link rel="stylesheet" href="{{ asset('') }}assets/css/daterangepicker.min.css"/>
+        <link rel="stylesheet" href="{{ asset('') }}assets/css/bootstrap-datetimepicker.min.css"/>
+        <link rel="stylesheet" href="{{ asset('') }}assets/css/bootstrap-colorpicker.min.css"/>
 
-{% block body %}
-    <h1>Prestataires list</h1>
+    {% endblock %}
+   {% block menu %}  <a href="{{ path('prestataire_index') }}">Prestataire</a>   {% endblock %}
 
-    <table>
+   {% block menu_active %}    prestataire {% endblock %}
+{% block content %}
+
+
+
+    <table class="table">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -39,7 +54,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('prestataire_new') }}">Create a new prestataire</a>
+            <a href="{{ path('prestataire_new') }}">Nouveau prestataire</a>
         </li>
     </ul>
 {% endblock %}

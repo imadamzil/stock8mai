@@ -3,4 +3,4 @@ $(window).load(function() {
 
     $("#loading").fadeOut(700);
 
-})
+});

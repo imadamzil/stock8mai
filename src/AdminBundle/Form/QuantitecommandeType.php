@@ -13,7 +13,11 @@ class QuantitecommandeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('qtecomm')->add('datecomm')->add('bon')->add('pro');
+        $builder  ->add('bon', BoncommandeType::class,array('label'=>'Bon de commande'))
+            ->add('qtecomm')
+
+
+            ->add('pro');
     }/**
      * {@inheritdoc}
      */

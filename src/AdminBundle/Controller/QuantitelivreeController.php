@@ -30,6 +30,22 @@ class QuantitelivreeController extends Controller
             'quantitelivrees' => $quantitelivrees,
         ));
     }
+/**
+     * Lists all quantitelivree entities.
+     *
+     * @Route("/commande_livree", name="commande_prestataire")
+     * @Method("GET")
+     */
+    public function commandeParPrestataireAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $quantitelivrees = $em->getRepository('AdminBundle:Quantitelivree')->findAll();
+
+        return $this->render('quantitelivree/commande.html.twig', array(
+            'quantitelivrees' => $quantitelivrees,
+        ));
+    }
 
     /**
      * Creates a new quantitelivree entity.
