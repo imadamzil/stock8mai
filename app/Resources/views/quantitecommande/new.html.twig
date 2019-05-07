@@ -1,5 +1,5 @@
 {% extends 'AdminBundle::layout.html.twig' %}
-{% block title %} FTTH Orange | Bon de commande  {% endblock %}
+{% block title %} FTTH Orange | Commandes {% endblock %}
     {% block stylesheets %}
         {{ parent() }}
         <link rel="stylesheet" href="{{ asset('') }}assets/css/jquery-ui.custom.min.css"/>
@@ -13,13 +13,13 @@
     {% endblock %}
    {% block menu %}  <a href="{{ path('quantitecommande_index') }}">Commandes</a>   {% endblock %}
 
-   {% block menu_active %}    Ajouter une commande {% endblock %}
+   {% block menu_active %}    Ajouter {% endblock %}
 {% block content %}
 
     <div class="col-md-10  widget-container-col ui-sortable" id="widget-container-col-1">
         <div class="widget-box ui-sortable-handle" id="widget-box-1">
             <div class="widget-header">
-                <h5 class="widget-title">Ajouter nouveau :</h5>
+                <h5 class="widget-title">Nouvelle commande :</h5>
 
                 <div class="widget-toolbar">
                     <div class="widget-menu">
@@ -57,12 +57,61 @@
             </div>
 
             <div class="widget-body">
+                <hr>
                 {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <input type="submit" value="Create" />
-                {{ form_end(form) }}
 
 
+                <div class="row">
+
+                    <div class="col-md-5 col-md-offset-1"> <label for=""> Date entrée: </label>
+
+                        <div class="input-group">
+
+                            <input type="text" id="adminbundle_quantitecommande_bon_datecomm" name="adminbundle_quantitecommande[bon][datecomm]" required="required" class="date-timepicker1 form-control is-invalid">
+                            <span class="input-group-addon">
+                                <i class="fa fa-clock-o bigger-120 blue"></i>
+                            </span>
+                        </div>
+
+                        </div>
+                    <div class="col-md-5 ">{{ form_row(form.bon.pre) }}</div>
+
+                </div>
+                <div class="row" id="adminbundle_quantitecommande_bon">
+                    <div class="col-md-5 col-md-offset-1">
+                        {{ form_row(form.pro) }}
+                    </div>
+                    <div class="col-md-5">
+                        <label for="spinner1">Quantité: </label>
+                        <div class="input-group">
+                            <input type="text" id="adminbundle_quantitecommande_qtecomm" name="adminbundle_quantitecommande[qtecomm]" class="spinbox-input form-control text-center spinner1">
+                            <div class="spinbox-buttons input-group-btn btn-group-vertical">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="submit">
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            Submit
+                        </button>
+
+                        &nbsp; &nbsp; &nbsp;
+                        <button class="btn" type="reset">
+                            <i class="ace-icon fa fa-undo bigger-110"></i>
+                            Reset
+                        </button>
+                    </div>
+                </div>
+                <hr>
+
+                {{ form_widget(form._token) }}
+
+                {{ form_end(form , {'render_rest': false}) }}
             </div>
         </div>
     </div>
@@ -89,14 +138,44 @@
 
     <script type="text/javascript">
         jQuery(function ($) {
-
-         /*   $('.js-datepicker').datepicker({
-                format: 'yyyy-mm-dd'
+            if (!ace.vars['old_ie']) $('.date-timepicker1').datetimepicker(
+                {
+                    locale: moment.locale('pt'),
+                    format: 'YYYY-MM-DD HH:mm' ,
+                    maxDate: moment(),
+                    widgetPositioning: {
+                        horizontal: 'left',
+                        vertical: 'bottom'
+                    },
+                    icons: {
+                        time: 'fa fa-clock-o',
+                        date: 'fa fa-calendar',
+                        up: 'fa fa-chevron-up',
+                        down: 'fa fa-chevron-down',
+                        previous: 'fa fa-chevron-left',
+                        next: 'fa fa-chevron-right',
+                        today: 'fa fa-arrows ',
+                        clear: 'fa fa-trash',
+                        close: 'fa fa-times'
+                    }
+                }).next().on(ace.click_event, function () {
+                $(this).prev().focus();
             });
-            */
+
             $('.js-datepicker').datepicker({
                 format: 'yyyy-mm-dd'
             });
+            $('.spinner1').ace_spinner({
+                value: 0,
+                min: 0,
+                max: 200,
+                step: 10,
+                btn_up_class: 'btn-info',
+                btn_down_class: 'btn-info'
+            })
+                .closest('.ace-spinner')
+            ;
+
 
             $(".chosen-select").chosen();
 

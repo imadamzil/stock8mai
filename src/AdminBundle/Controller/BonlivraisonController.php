@@ -48,7 +48,7 @@ class BonlivraisonController extends Controller
             $em->persist($bonlivraison);
             $em->flush();
 
-            return $this->redirectToRoute('bonlivraison_show', array('id' => $bonlivraison->getId()));
+            return $this->redirectToRoute('bonlivraison_index');
         }
 
         return $this->render('bonlivraison/new.html.twig', array(

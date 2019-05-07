@@ -17,13 +17,13 @@
     {% endblock %}
    {% block menu %}  <a href="{{ path('produit_index') }}">Produit</a>   {% endblock %}
 
-   {% block menu_active %}    Ajouter un Produit {% endblock %}
+   {% block menu_active %}    Ajouter {% endblock %}
 {% block content %}
 
     <div class="col-md-10  widget-container-col ui-sortable" id="widget-container-col-1">
         <div class="widget-box ui-sortable-handle" id="widget-box-1">
             <div class="widget-header">
-                <h5 class="widget-title">Ajouter nouveau Produit :</h5>
+                <h5 class="widget-title">Nouveau Produit :</h5>
 
                 <div class="widget-toolbar">
                     <div class="widget-menu">
@@ -61,16 +61,43 @@
             </div>
 
             <div class="widget-body">
-                <div class="widget-main">
 
+
+
+                    <hr>
+                    {{ form_start(form) }}
                     <div class="row">
-                        {{ form_start(form) }}
-                        {{ form_widget(form) }}
-                        <input type="submit" value="Create" />
-                        {{ form_end(form) }}
+
+                        <div class="col-md-4 col-md-offset-1"> {{ form_row(form.reference) }}</div>
+                        <div class="col-md-5">{{ form_row(form.cat) }}</div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-4 col-md-offset-1"> {{ form_row(form.labelle) }}</div>
+                        <div class="col-md-5">{{ form_row(form.description) }}</div>
 
                     </div>
 
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn btn-info" type="submit">
+                                <i class="ace-icon fa fa-check bigger-110"></i>
+                                Submit
+                            </button>
+
+                            &nbsp; &nbsp; &nbsp;
+                            <button class="btn" type="reset">
+                                <i class="ace-icon fa fa-undo bigger-110"></i>
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+
+                    {{ form_widget(form._token) }}
+
+                    {{ form_end(form , {'render_rest': false}) }}
 
 
                 </div>
@@ -78,4 +105,64 @@
         </div>
     </div>
 
+{% endblock %}
+{% block javascripts %}
+
+    {{ parent() }}
+    <script src=" {{ asset('') }}assets/js/jquery-ui.custom.min.js"></script>
+    <script src="{{ asset('') }}assets/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="{{ asset('') }}assets/js/chosen.jquery.min.js"></script>
+    <script src="{{ asset('') }}assets/js/spinbox.min.js"></script>
+    <script src="{{ asset('') }}assets/js/bootstrap-datepicker.min.js"></script>
+    <script src="{{ asset('') }}assets/js/bootstrap-timepicker.min.js"></script>
+    <script src="{{ asset('') }}assets/js/moment.min.js"></script>
+    <script src="{{ asset('') }}assets/js/daterangepicker.min.js"></script>
+    <script src="{{ asset('') }}assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="{{ asset('') }}assets/js/bootstrap-colorpicker.min.js"></script>
+    <script src="{{ asset('') }}assets/js/jquery.knob.min.js"></script>
+    <script src="{{ asset('') }}assets/js/autosize.min.js"></script>
+    <script src="{{ asset('') }}assets/js/jquery.inputlimiter.min.js"></script>
+    <script src="{{ asset('') }}assets/js/jquery.maskedinput.min.js"></script>
+    <script src="{{ asset('') }}assets/js/bootstrap-tag.min.js"></script>
+
+    <script type="text/javascript">
+        jQuery(function ($) {
+
+
+            $(".chosen-select").chosen();
+/////////
+            $('#modal-form input[type=file]').ace_file_input({
+                style:'well',
+                btn_choose:'Drop files here or click to choose',
+                btn_change:null,
+                no_icon:'ace-icon fa fa-cloud-upload',
+                droppable:true,
+                thumbnail:'large'
+            })
+
+            //chosen plugin inside a modal will have a zero width because the select element is originally hidden
+            //and its width cannot be determined.
+            //so we set the width after modal is show
+            $('#modal-form').on('shown.bs.modal', function () {
+                if(!ace.vars['touch']) {
+                    $(this).find('.chosen-container').each(function(){
+                        $(this).find('a:first-child').css('width' , '210px');
+                        $(this).find('.chosen-drop').css('width' , '210px');
+                        $(this).find('.chosen-search input').css('width' , '200px');
+                    });
+                }
+            })
+            /**
+             //or you can activate the chosen plugin after modal is shown
+             //this way select element becomes visible with dimensions and chosen works as expected
+             $('#modal-form').on('shown', function () {
+					$(this).find('.modal-chosen').chosen();
+				})
+             */
+
+
+        });
+
+
+    </script>
 {% endblock %}

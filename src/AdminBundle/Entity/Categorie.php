@@ -29,7 +29,6 @@ class Categorie
     private $id;
 
 
-
     /**
      * Set labelle
      *
@@ -63,4 +62,10 @@ class Categorie
     {
         return $this->id;
     }
+
+    public function __toString()
+    {
+        return $this->getLabelle();
+    }
+
 }

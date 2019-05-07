@@ -50,7 +50,6 @@ class Fournisseur
     private $id;
 
 
-
     /**
      * Set nom
      *
@@ -87,6 +86,12 @@ class Fournisseur
         $this->adresse = $adresse;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getNom();
+
     }
 
     /**

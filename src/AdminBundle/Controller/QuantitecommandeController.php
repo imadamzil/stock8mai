@@ -48,7 +48,7 @@ class QuantitecommandeController extends Controller
             $em->persist($quantitecommande);
             $em->flush();
 
-            return $this->redirectToRoute('quantitecommande_show', array('id' => $quantitecommande->getId()));
+            return $this->redirectToRoute('quantitecommande_index');
         }
 
         return $this->render('quantitecommande/new.html.twig', array(

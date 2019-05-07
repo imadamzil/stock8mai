@@ -25,6 +25,18 @@ class Produit
      * @ORM\Column(name="description", type="string", length=254, nullable=true)
      */
     private $description;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="stock", type="float", length=254, nullable=true)
+     */
+    private $stock;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="labelle", type="string", length=254, nullable=true)
+     */
+    private $labelle;
 
     /**
      * @var integer
@@ -163,6 +175,54 @@ class Produit
 
     public function __toString()
     {
-        return $this->getReference() . ' ' . $this->getDescription();
+        return $this->getLabelle() . ' ' . $this->getReference();
+    }
+
+    /**
+     * Set labelle
+     *
+     * @param string $labelle
+     *
+     * @return Produit
+     */
+    public function setLabelle($labelle)
+    {
+        $this->labelle = $labelle;
+
+        return $this;
+    }
+
+    /**
+     * Get labelle
+     *
+     * @return string
+     */
+    public function getLabelle()
+    {
+        return $this->labelle;
+    }
+
+    /**
+     * Set stock
+     *
+     * @param \double $stock
+     *
+     * @return Produit
+     */
+    public function setStock( $stock)
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    /**
+     * Get stock
+     *
+     * @return \double
+     */
+    public function getStock()
+    {
+        return $this->stock;
     }
 }

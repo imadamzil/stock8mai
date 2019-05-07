@@ -64,7 +64,7 @@ class QuantitelivreeController extends Controller
             $em->persist($quantitelivree);
             $em->flush();
 
-            return $this->redirectToRoute('quantitelivree_show', array('id' => $quantitelivree->getId()));
+            return $this->redirectToRoute('quantitelivree_index');
         }
 
         return $this->render('quantitelivree/new.html.twig', array(

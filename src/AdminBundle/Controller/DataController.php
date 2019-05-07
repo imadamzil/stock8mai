@@ -48,7 +48,7 @@ class DataController extends Controller
             $em->persist($data);
             $em->flush();
 
-            return $this->redirectToRoute('data_show', array('id' => $data->getId()));
+            return $this->redirectToRoute('data_index');
         }
 
         return $this->render('data/new.html.twig', array(

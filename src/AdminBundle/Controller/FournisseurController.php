@@ -48,7 +48,7 @@ class FournisseurController extends Controller
             $em->persist($fournisseur);
             $em->flush();
 
-            return $this->redirectToRoute('fournisseur_show', array('id' => $fournisseur->getId()));
+            return $this->redirectToRoute('fournisseur_index');
         }
 
         return $this->render('fournisseur/new.html.twig', array(

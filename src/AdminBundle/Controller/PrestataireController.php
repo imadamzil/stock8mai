@@ -48,7 +48,7 @@ class PrestataireController extends Controller
             $em->persist($prestataire);
             $em->flush();
 
-            return $this->redirectToRoute('prestataire_show', array('id' => $prestataire->getId()));
+            return $this->redirectToRoute('prestataire_index');
         }
 
         return $this->render('prestataire/new.html.twig', array(

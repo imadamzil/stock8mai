@@ -47,8 +47,14 @@ class QuantiteentreeController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($quantiteentree);
             $em->flush();
+            $produit =$quantiteentree->getPro();
+           $stock= $produit->getStock();
+           $stock+= $quantiteentree->getQteentree();
+           $produit->setStock($stock);
+            $em->persist($produit);
+            $em->flush();
 
-            return $this->redirectToRoute('quantiteentree_show', array('id' => $quantiteentree->getId()));
+            return $this->redirectToRoute('quantiteentree_index');
         }
 
         return $this->render('quantiteentree/new.html.twig', array(

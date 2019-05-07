@@ -83,7 +83,7 @@ class DefaultController extends Controller implements IReadFilter
             else {
 
                 $em = $this->getDoctrine()->getManager();
-                $sipp = $row[7];
+                $sipp = substr($row[7], -9);;
                 $ssujet = $row[4];
                 $date_maj = DateTime::createFromFormat('m/d/Y H:i', $row[30]);
                 $date_maj->format('d-m-Y H:i');
@@ -125,7 +125,7 @@ class DefaultController extends Controller implements IReadFilter
 
                     }
                     //sip
-                    $sip = $row[7];
+                    $sip = substr($row[7], -9);;
                     $demande->setSip($sip);
                     //internet login
                     $loginInternet = $row[8];
@@ -246,7 +246,7 @@ class DefaultController extends Controller implements IReadFilter
 
                         }
                         //sip
-                        $sip = $row[7];
+                        $sip = substr($row[7], -9);;
                         $demande->setSip($sip);
                         //internet login
                         $loginInternet = $row[8];
@@ -367,7 +367,7 @@ class DefaultController extends Controller implements IReadFilter
 
                             }
                             //sip
-                            $sip = $row[7];
+                            $sip = substr($row[7], -9);;
                             $demande->setSip($sip);
                             //internet login
                             $loginInternet = $row[8];
@@ -473,7 +473,8 @@ class DefaultController extends Controller implements IReadFilter
         //$cellValue = $spreadsheet->getActiveSheet()->getCell('A1')->getValue();
         // dump($cells);
 
-
+$str="20190430_EL GUELLAA TAOUFIK_MultiProduit____Orange Duo Fibre 50M";
+        dump(explode('_', $str, -1));
         // ini_set('memory_limit', '512M');
         //  print_r($rows);
 

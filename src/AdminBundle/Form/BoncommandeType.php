@@ -4,6 +4,7 @@ namespace AdminBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,22 +19,32 @@ class BoncommandeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-           // ->add('datecomm')
-           ->add('datecomm', DateType::class, [
-               'widget' => 'single_text',
-             //  'format' => 'DD/MM/YYYY',
-               'html5'=>false,
+            ->add('datecomm', DateTimeType::class, [
+                'widget' => 'single_text',
 
-               // prevents rendering it as type="date", to avoid HTML5 date pickers
+                // prevents rendering it as type="date", to avoid HTML5 date pickers
+                'html5' => false,
 
-               // adds a class that can be selected in JavaScript
-              'attr' => ['class' => 'js-datepicker'],
-           ])
-            ->add('pre',EntityType::class,array(
-                'class'=>'AdminBundle:Prestataire',
-                'label'=>'Prestataire'
-            ));
-    }/**
+                // adds a class that can be selected in JavaScript
+                'attr' => ['class' => 'date-timepicker1'],
+            ])
+            // ->add('datecomm')
+           
+            ->add('pre', EntityType::class, array(
+                'class' => 'AdminBundle:Prestataire',
+                'multiple' => false,
+                'label' => 'Prestataire: ',
+                'attr' => array(
+                    'class' => 'chosen-select',
+                    'data-placeholder' => 'Choisir un prestataire',
+                    'multiple' => false
+
+                )))
+
+        ;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

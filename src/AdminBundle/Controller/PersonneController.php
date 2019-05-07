@@ -48,7 +48,7 @@ class PersonneController extends Controller
             $em->persist($personne);
             $em->flush();
 
-            return $this->redirectToRoute('personne_show', array('id' => $personne->getId()));
+            return $this->redirectToRoute('personne_index');
         }
 
         return $this->render('personne/new.html.twig', array(
