@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Demande</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ demande.id }}</td>
+            </tr>
+            <tr>
+                <th>Projet</th>
+                <td>{{ demande.projet }}</td>
+            </tr>
+            <tr>
+                <th>Sujet</th>
+                <td>{{ demande.sujet }}</td>
+            </tr>
+            <tr>
+                <th>Intervenant</th>
+                <td>{{ demande.intervenant }}</td>
+            </tr>
+            <tr>
+                <th>Datecreation</th>
+                <td>{% if demande.dateCreation %}{{ demande.dateCreation|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Sip</th>
+                <td>{{ demande.sip }}</td>
+            </tr>
+            <tr>
+                <th>Logininternet</th>
+                <td>{{ demande.loginInternet }}</td>
+            </tr>
+            <tr>
+                <th>Dateinstallation</th>
+                <td>{% if demande.dateInstallation %}{{ demande.dateInstallation|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datemes</th>
+                <td>{% if demande.dateMes %}{{ demande.dateMes|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ demande.etat }}</td>
+            </tr>
+            <tr>
+                <th>Problemeclient</th>
+                <td>{{ demande.problemeClient }}</td>
+            </tr>
+            <tr>
+                <th>Etatinstallation</th>
+                <td>{{ demande.etatInstallation }}</td>
+            </tr>
+            <tr>
+                <th>Problemeinstallation</th>
+                <td>{{ demande.problemeInstallation }}</td>
+            </tr>
+            <tr>
+                <th>Blocageclient</th>
+                <td>{{ demande.blocageClient }}</td>
+            </tr>
+            <tr>
+                <th>Statutactivite</th>
+                <td>{{ demande.statutActivite }}</td>
+            </tr>
+            <tr>
+                <th>File</th>
+                <td>{{ demande.file }}</td>
+            </tr>
+            <tr>
+                <th>Technologie</th>
+                <td>{{ demande.technologie }}</td>
+            </tr>
+            <tr>
+                <th>Typeoffre</th>
+                <td>{{ demande.typeOffre }}</td>
+            </tr>
+            <tr>
+                <th>Kam</th>
+                <td>{{ demande.kam }}</td>
+            </tr>
+            <tr>
+                <th>Dategoinstallation</th>
+                <td>{% if demande.dateGoInstallation %}{{ demande.dateGoInstallation|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Dateactivation</th>
+                <td>{% if demande.dateActivation %}{{ demande.dateActivation|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Proprietaire</th>
+                <td>{{ demande.proprietaire }}</td>
+            </tr>
+            <tr>
+                <th>Offre</th>
+                <td>{{ demande.offre }}</td>
+            </tr>
+            <tr>
+                <th>Modifiepar</th>
+                <td>{{ demande.modifiePar }}</td>
+            </tr>
+            <tr>
+                <th>Portabilite</th>
+                <td>{{ demande.portabilite }}</td>
+            </tr>
+            <tr>
+                <th>Adressmac</th>
+                <td>{{ demande.adressMac }}</td>
+            </tr>
+            <tr>
+                <th>Changementeffectue</th>
+                <td>{{ demande.changementEffectue }}</td>
+            </tr>
+            <tr>
+                <th>Dateenvoifile</th>
+                <td>{% if demande.dateEnvoiFile %}{{ demande.dateEnvoiFile|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datemaj</th>
+                <td>{% if demande.dateMaj %}{{ demande.dateMaj|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('demande_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('demande_edit', { 'id': demande.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
